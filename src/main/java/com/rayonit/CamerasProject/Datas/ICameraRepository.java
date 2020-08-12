@@ -11,5 +11,5 @@ import java.util.List;
 public interface ICameraRepository extends MongoRepository<Camera, String> {
     boolean existsByIpIs(String ip);
     Camera findCameraById(String id);
-
+    int countCamerasByResolution(String resolution);
 }

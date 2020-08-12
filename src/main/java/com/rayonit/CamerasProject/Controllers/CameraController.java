@@ -49,6 +49,11 @@ public class CameraController {
     public boolean checkIfIpAddressExists(@RequestParam("ipAddress") String ipAddress){
         return repo.existsByIpIs(ipAddress);
     }
+
+    @RequestMapping(value = "/resolutions", method = RequestMethod.GET)
+    public int getCamerasResolution(@RequestParam("resolution") String resolution){
+        return repo.countCamerasByResolution(resolution);
+    }
 /*
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public Optional<Camera> updateCamera(@PathVariable Long id, @RequestBody Camera camera){
