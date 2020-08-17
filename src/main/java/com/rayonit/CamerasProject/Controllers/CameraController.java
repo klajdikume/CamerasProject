@@ -3,22 +3,26 @@ package com.rayonit.CamerasProject.Controllers;
 import com.rayonit.CamerasProject.Datas.ICameraRepository;
 import com.rayonit.CamerasProject.model.Camera;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController()
 @RequestMapping("/api/cameras")
 public class CameraController {
+
 
     private final ICameraRepository repo;
 
     @Autowired
     public CameraController(ICameraRepository repo) {
         this.repo = repo;
-
     }
+
 
     @PostMapping
     public void createCamera(@RequestBody Camera camera){
@@ -53,6 +57,14 @@ public class CameraController {
     @RequestMapping(value = "/resolutions", method = RequestMethod.GET)
     public int getCamerasResolution(@RequestParam("resolution") String resolution){
         return repo.countCamerasByResolution(resolution);
+    }
+
+    @RequestMapping(value = "/camerasPage", method = RequestMethod.GET)
+    public Page<Camera> getPaginatedCameras(Pageable pagination){
+
+        // int totalCount = repo.countCameras();
+
+        return repo.findAll(pagination);
     }
 /*
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
